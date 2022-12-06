@@ -1,0 +1,216 @@
+query Orders {
+    getOrders {
+        id
+        customer {
+            phone{
+                number
+                verified
+            }
+            location {
+                address
+                city
+            }
+        }
+        merchant {
+            _id
+            name
+        }
+        payment {
+            method
+            created_at
+        }
+        delivery_address {
+            address
+            city
+            additional_information
+            coordinates
+        }
+        order_detail {
+            delivery_fee
+            total_price
+            product {
+                id
+                product_id
+                product_img_url
+                name
+                price
+                quantity
+                option {
+                    name
+                    additional_price
+                    option_type
+                }
+            }
+        }
+        status
+        created_at
+    }
+}
+
+query OrdersByStatus($status: String!) {
+    getOrdersByStatus(status: $status) {
+        id
+        customer {
+            phone{
+                number
+                verified
+            }
+        }
+        merchant {
+            _id
+            name
+        }
+        payment {
+            method
+            created_at
+        }
+        delivery_address {
+            address
+            city
+            additional_information
+            coordinates
+        }
+        order_detail {
+            delivery_fee
+            total_price
+            product {
+                id
+                product_id
+                product_img_url
+                name
+                price
+                quantity
+                option {
+                    name
+                    additional_price
+                    option_type
+                }
+            }
+        }
+        status
+        created_at
+    }
+}
+
+query Order($orderId: ID!) {
+    getOrder(orderId: $orderId) {
+        id
+        customer {
+            name
+            phone{
+                number
+                verified
+            }
+        }
+        merchant {
+            _id
+            name
+        }
+        payment {
+            method
+            created_at
+        }
+        delivery_address {
+            address
+            city
+            additional_information
+            coordinates
+        }
+        order_detail {
+            delivery_fee
+            total_price
+            product {
+                id
+                product_id
+                product_img_url
+                name
+                price
+                quantity
+                option {
+                    name
+                    additional_price
+                    option_type
+                }
+            }
+        }
+        status
+        created_at
+        reviewed
+    }
+}
+
+query ordersStatus {
+    getOrdersStatus {
+        pending {
+            status
+            id
+            notified
+        }
+        confirmed {
+            id
+            status
+            notified
+        }
+        to_receive {
+            id
+            status
+            notified
+        }
+        delivered {
+            id
+            status
+            notified
+        }
+        cancelled {
+            id
+            status
+        }
+    }
+}
+
+mutation CreateOrder($orderInput: OrderInput!) {
+    createOrder(orderInput: $orderInput) {
+        id
+        payment {
+            method
+            created_at
+        }
+        delivery_address {
+            address
+            city
+            additional_information
+            coordinates
+        }
+        order_detail {
+            delivery_fee
+            total_price
+            product {
+                id
+                product_id
+                name
+                product_img_url
+                instructions
+                price
+                quantity
+                option {
+                    name
+                    additional_price
+                    option_type
+                }
+            }
+        }
+        status
+    }
+}
+
+mutation updateDeliveryAddress($orderId: ID!, $deliveryAddress: LocationInput!) {
+    updateDeliveryAddress(orderId: $orderId, deliveryAddress: $deliveryAddress)
+}
+
+mutation updateOrderNotified($orderId: ID!) {
+    updateOrderNotified(orderId: $orderId)
+}
+
+mutation cancelOrder($orderId: ID!, $reason: String!) {
+    cancelOrder(orderId: $orderId, reason: $reason)
+}

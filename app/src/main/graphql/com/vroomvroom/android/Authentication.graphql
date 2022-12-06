@@ -1,0 +1,27 @@
+mutation Register {
+    register {
+        id
+        name
+        email
+        phone {
+            number
+            verified
+        }
+    }
+}
+
+mutation VerifyMobileNumber($number: String!) {
+    mobileNUmber(number: $number)
+}
+
+mutation OtpVerification($otp: String!) {
+    otpVerification(otp: $otp) {
+        id
+        name
+        email
+        phone {
+            number
+            verified
+        }
+    }
+}

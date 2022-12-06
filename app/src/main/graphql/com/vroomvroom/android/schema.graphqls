@@ -1,0 +1,213 @@
+type Category {
+  id: ID!
+  name: String!
+  img_url: String!
+}
+type Product {
+  _id: ID!
+  name: String!
+  product_img_url: String
+  price: Float!
+  description: String
+  option: [ProductOption!]
+  likes: Int
+}
+type ProductOption {
+  name: String!
+  required: Boolean!
+  choice: [OptionChoice!]!
+}
+type OptionChoice {
+  name: String!
+  additional_price: Float
+}
+type ProductSection {
+  _id: ID!
+  name: String!
+  products: [Product!]!
+}
+type Review {
+  _id: String!
+  rate: Int!
+  _review: String
+  created_at: String!
+}
+type Merchant {
+  _id: ID!
+  name: String!
+  img_url: String!
+  categories: [String]!
+  product_sections: [ProductSection!]!
+  reviews: [Review]
+  rates: Int
+  ratings: Float
+  favorite: Boolean
+  location: [String!]
+  opening: Int!
+  closing: Int!
+  isOpen: Boolean!
+}
+type User {
+  id: ID!
+  name: String
+  email: String!
+  phone: Phone
+  location: Location
+  created_at: Int!
+}
+type Phone {
+  number: String!
+  verified: Boolean!
+}
+type Location {
+  address: String
+  city: String
+  additional_information: String
+  coordinates: [Float!]!
+}
+type Order {
+  id: ID!
+  payment: Payment!
+  customer: User!
+  merchant: Merchant!
+  delivery_address: Location!
+  order_detail: OrderDetail!
+  status: String!
+  created_at: String!
+  reviewed: Boolean!
+}
+type OrderDetail {
+  delivery_fee: Float!
+  total_price: Float!
+  product: [OrderProduct!]!
+}
+type OrderProduct {
+  id: ID!
+  product_id: ID!
+  name: String!
+  product_img_url: String
+  price: Float!
+  quantity: Int!
+  instructions: String
+  option: [OrderProductOption!]
+}
+type OrderProductOption {
+  name: String!
+  additional_price: Float
+  option_type: String!
+}
+type Payment {
+  reference: String
+  method: String!
+  created_at: String!
+}
+type OrdersStatus {
+  pending: [OrderStatusDetail]
+  confirmed: [OrderStatusDetail]
+  to_receive: [OrderStatusDetail]
+  delivered: [OrderStatusDetail]
+  cancelled: [OrderStatusDetail]
+}
+type OrderStatusDetail {
+  id: String!
+  status: String!
+  notified: Boolean!
+}
+input MerchantInput {
+  name: String!
+  img_url: String!
+  product_categories: [String]!
+  products: [ProductInput]
+  categories: [String]!
+  opening: String!
+  closing: String!
+}
+input ReviewInput {
+  merchant_id: ID!
+  order_id: ID!
+  rate: Int!
+  _review: String
+}
+input ProductInput {
+  name: String!
+  product_img_url: String!
+  product_category: [String]!
+  price: Int!
+  description: String
+}
+input OrderInput {
+  payment: PaymentInput!
+  merchant: ID!
+  delivery_address: LocationInput!
+  order_detail: OrderDetailInput!
+}
+input PaymentInput {
+  reference: String
+  method: String!
+}
+input OrderDetailInput {
+  delivery_fee: Float!
+  total_price: Float!
+  product: [OrderProductInput!]!
+}
+input OrderProductInput {
+  product_id: ID!
+  name: String!
+  product_img_url: String
+  price: Float!
+  quantity: Int!
+  instructions: String
+  option: [OrderProductOptionInput]
+}
+input OrderProductOptionInput {
+  name: String!
+  additional_price: Float
+  option_type: String!
+}
+input MobileNumberInput {
+  number: String
+}
+input OtpVerificationInput {
+  otp: String
+}
+input LocationInput {
+  address: String
+  city: String
+  additional_information: String
+  coordinates: [Float!]!
+}
+type Query {
+  getUser: User!
+  getCategories(type: String!): [Category!]!
+  getMerchants(query: String!, filter: String): [Merchant]!
+  getMerchant(merchantId: String!): Merchant!
+  getOrders: [Order]!
+  getOrdersByStatus(status: String!): [Order]!
+  getOrder(orderId: ID!): Order!
+  getOrdersStatus: OrdersStatus
+}
+type Mutation {
+  register: User
+  updateName(name: String!): User!
+  updateLocation(location: LocationInput): User!
+
+  mobileNUmber(number: String!): String!
+  otpVerification(otp: String!): User!
+
+  createMerchant(merchantInput: MerchantInput!): Merchant!
+  deleteMerchant(merchantId: ID!): String!
+  updateFavorite(merchantId: ID!, direction: Int!): String!
+  reviewMerchant(review: ReviewInput!): String!
+
+  createCategory(name: String!, img_url: String!): Category!
+  deleteCategory(categoryId: ID!): String!
+
+  createOrder(orderInput: OrderInput!): Order!
+  updateDeliveryAddress(orderId: ID!, deliveryAddress: LocationInput!): String!
+  updateOrderNotified(orderId: ID!): String!
+  cancelOrder(orderId: ID!, reason: String!): String!
+
+}
+type Subscription {
+  newOrder: Order!
+}
