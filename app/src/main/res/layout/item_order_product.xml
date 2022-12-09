@@ -6,7 +6,7 @@
     <data>
         <variable
             name="orderProduct"
-            type="com.vroomvroom.android.data.model.order.OrderProductDto" />
+            type="com.vroomvroom.fooddeliverys.data.model.order.OrderProductDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

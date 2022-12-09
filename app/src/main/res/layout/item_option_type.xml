@@ -6,7 +6,7 @@
     <data>
         <variable
             name="optionType"
-            type="com.vroomvroom.android.data.model.merchant.OptionType" />
+            type="com.vroomvroom.fooddeliverys.data.model.merchant.OptionType" />
         <import type="android.view.View"/>
     </data>
 

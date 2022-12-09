@@ -6,7 +6,7 @@
     <data>
         <variable
             name="review"
-            type="com.vroomvroom.android.data.model.merchant.Review" />
+            type="com.vroomvroom.fooddeliverys.data.model.merchant.Review" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

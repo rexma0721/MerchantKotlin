@@ -6,7 +6,7 @@
     <data>
         <variable
             name="order"
-            type="com.vroomvroom.android.data.model.order.OrderDto" />
+            type="com.vroomvroom.fooddeliverys.data.model.order.OrderDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="32dp"
-                        android:text="@{order.deliveryAddress.address ?? `Not Provided`}"
+                        android:text="@{order.delivery_address.address ?? `Not Provided`}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView11"
                         app:layout_constraintTop_toBottomOf="@+id/textView25"
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@{order.deliveryAddress.city ?? `Not Provided`}"
+                        android:text="@{order.delivery_address.city ?? `Not Provided`}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView11"
                         app:layout_constraintTop_toBottomOf="@+id/textView19"
@@ -274,7 +274,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintBottom_toTopOf="@+id/totalTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="₱49.00"/>
+                tools:text="₱00.00"/>
 
             <TextView
                 android:id="@+id/totalTv"

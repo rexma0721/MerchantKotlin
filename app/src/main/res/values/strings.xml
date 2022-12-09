@@ -67,7 +67,7 @@
     <string name="gcash">GCash</string>
     <string name="verification">Verify Your Number</string>
     <string name="we_will_send_you_an_otp_on_this_mobile_number">We will send you an OTP on this mobile.</string>
-    <string name="ph_phone_code">+63</string>
+    <string name="mx_phone_code">+52</string>
     <string name="phone_placeholder">931xxxxxxx</string>
     <string name="enter_mobile_number">Enter mobile number</string>
     <string name="send_otp">Send OTP</string>
@@ -211,4 +211,6 @@
     <string name="change">Change</string>
     <string name="empty_number_message">Please input phone number</string>
     <string name="mapbox_access_token">sk.eyJ1Ijoid2g0dHNlcm5hbWUiLCJhIjoiY2wyZnRmM3ZsMGIwZzNjcnp3Y3o1ZTJnayJ9.q_8JuLr0P80Ycz3Gs-2Zfg</string>
+    <string name="google_api_keys">AIzaSyDFSAYbFcsE_liJBFANcdnuvVLKO0a2EZQ</string>
+    <string name="place_currency">₱</string>
 </resources>

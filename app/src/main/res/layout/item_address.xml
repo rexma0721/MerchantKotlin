@@ -6,7 +6,7 @@
     <data>
         <variable
             name="address"
-            type="com.vroomvroom.android.data.model.user.LocationEntity" />
+            type="com.vroomvroom.fooddeliverys.data.model.user.LocationEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cartItemWithChoice"
-            type="com.vroomvroom.android.data.model.cart.CartItemWithOptions" />
+            type="com.vroomvroom.fooddeliverys.data.model.cart.CartItemWithOptions" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="search"
-            type="com.vroomvroom.android.data.model.search.SearchEntity" />
+            type="com.vroomvroom.fooddeliverys.data.model.search.SearchEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

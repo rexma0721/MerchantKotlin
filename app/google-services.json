@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1032516096280",
-    "project_id": "vromm-509fe",
-    "storage_bucket": "vromm-509fe.appspot.com"
+    "project_number": "498853443476",
+    "project_id": "vroomdelivery-40000",
+    "storage_bucket": "vroomdelivery-40000.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1032516096280:android:a7c07c3663c4f5a20d8e6d",
+        "mobilesdk_app_id": "1:498853443476:android:5762bdfc6e9639b3da8181",
         "android_client_info": {
-          "package_name": "com.vroomvroom.android"
+          "package_name": "com.vroomvroom.fooddeliverys"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1032516096280-4us9u5qoqij7fuibhbt8m23b31f55fcc.apps.googleusercontent.com",
+          "client_id": "498853443476-u78qoeco7vsv7bhqnvmgqkogls8irn15.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vroomvroom.fooddeliverys",
+            "certificate_hash": "d61e6731dff996058ad884d3904109125f831084"
+          }
+        },
+        {
+          "client_id": "498853443476-m4513k0pvcpbva5tpltlk3kd002q8j2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCjYUrFvQzbzIOJG0HROlln-lgLb3EunJI"
+          "current_key": "AIzaSyAEW3sOrfeiFGcXD9K--Aw7XoK0m5rdjeI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1032516096280-4us9u5qoqij7fuibhbt8m23b31f55fcc.apps.googleusercontent.com",
+              "client_id": "498853443476-m4513k0pvcpbva5tpltlk3kd002q8j2h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
