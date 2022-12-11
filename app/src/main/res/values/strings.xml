@@ -11,9 +11,9 @@
     <string name="placed_order_title">Success!</string>
     <string name="placed_order_message">You have successfully placed order!</string>
     <string name="creating_dialog_message">Creating order…</string>
-    <string name="facebook_app_id">593283722014887</string>
+    <string name="facebook_app_id">329995049143499</string>
     <string name="fb_login_protocol_scheme">fb593283722014887</string>
-    <string name="facebook_client_token">dd589d0b733000634328ead72eeec53b</string>
+    <string name="facebook_client_token">e242992d2ad2f0b250d7e950a0833d1a</string>
     <string name="special_instructions">Special Instructions</string>
     <string name="delivery_address">Delivery address</string>
     <string name="to_check_out">Go to checkout</string>
@@ -211,6 +211,6 @@
     <string name="change">Change</string>
     <string name="empty_number_message">Please input phone number</string>
     <string name="mapbox_access_token">sk.eyJ1Ijoid2g0dHNlcm5hbWUiLCJhIjoiY2wyZnRmM3ZsMGIwZzNjcnp3Y3o1ZTJnayJ9.q_8JuLr0P80Ycz3Gs-2Zfg</string>
-    <string name="google_api_keys">AIzaSyDFSAYbFcsE_liJBFANcdnuvVLKO0a2EZQ</string>
+    <string name="google_api_keys">AIzaSyBOgcNg48TN9n3EYyz36VeqyWcfBklgZgg</string>
     <string name="place_currency">₱</string>
 </resources>

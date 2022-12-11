@@ -85,6 +85,7 @@ class PhoneVerificationFragment : BaseFragment<FragmentPhoneVerificationBinding>
 
                       override fun onVerificationFailed(e: FirebaseException) {
                           // ...
+                          Log.e("error", e.message.toString())
                           loadingDialog.dismiss()
                           binding.btnGetOtp.isEnabled = true
                           showShortToast(R.string.invalid_phone_number)

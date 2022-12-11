@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "498853443476-u78qoeco7vsv7bhqnvmgqkogls8irn15.apps.googleusercontent.com",
+          "client_id": "498853443476-8brfsjsvgkoeu32qs28hmor6hg1rfj6n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.vroomvroom.fooddeliverys",
-            "certificate_hash": "d61e6731dff996058ad884d3904109125f831084"
+            "certificate_hash": "92e7adb4f6a25ca0ab8a41f1116727c0bef26b84"
           }
         },
         {

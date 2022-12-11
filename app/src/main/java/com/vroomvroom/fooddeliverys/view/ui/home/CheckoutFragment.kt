@@ -12,6 +12,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.firebase.firestore.FirebaseFirestore
 import com.vroomvroom.fooddeliverys.R
 import com.vroomvroom.fooddeliverys.data.model.cart.CartMerchantEntity
 import com.vroomvroom.fooddeliverys.data.model.order.Payment
@@ -32,6 +33,7 @@ import com.vroomvroom.fooddeliverys.view.ui.home.adapter.CheckoutAdapter
 import com.vroomvroom.fooddeliverys.view.ui.home.viewmodel.CheckoutViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.tasks.await
 
 
 @AndroidEntryPoint
@@ -49,6 +51,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
     private var locationEntity: LocationEntity? = null
     var firstmerchant: CartMerchantEntity? = null
     var deliveryFee = 0.0
+    var deliveryunit = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,6 +78,17 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
 
         binding.editPaymentMethod.setOnClickListener {
             navController.navigate(R.id.action_checkoutFragment_to_paymentMethodFragment)
+        }
+
+        try{
+            FirebaseFirestore.getInstance().collection("Global").document("deliveryfee").get().
+            addOnSuccessListener {
+                deliveryunit = it.getDouble("fee")!!
+                Log.e("error", deliveryunit.toString())
+            }
+        }catch (e: Exception) {
+            Log.e("error", e.message.toString())
+            deliveryunit = 0.0
         }
     }
 
@@ -115,6 +129,27 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
         locationViewModel.userLocation.observe(viewLifecycleOwner) { userLocation ->
             locationEntity = userLocation.find { it.currentUse }
             locationEntity?.let {
+
+                merchantLocation = LatLng(
+                    firstmerchant!!.merchantlon.toDouble(),
+                    firstmerchant!!.merchantlat.toDouble()
+                )
+                val locationA = Location("point A")
+                locationA.latitude = it.latitude
+                locationA.longitude = it.longitude
+                val locationB = Location("point B")
+                locationB.latitude = firstmerchant!!.merchantlon.toDouble()
+                locationB.longitude = firstmerchant!!.merchantlat.toDouble()
+                Log.v("cartitemslat", it.latitude.toString())
+                Log.v("cartitemslon", it.longitude.toString())
+                Log.v("cartitemslat", firstmerchant!!.merchantlon.toString())
+                Log.v("cartitemslon", firstmerchant!!.merchantlat.toString())
+                val distance = locationA.distanceTo(locationB)/1000
+                deliveryFee = distance.toDouble() * deliveryunit
+                binding.btnPlaceOrder.text =
+                    getString(R.string.place_order,
+                        "%.2f".format(checkoutViewModel.subtotal + deliveryFee))
+                binding.deliveryFee.text="₱"+ "%.2f".format(deliveryFee)
                 updateLocationViews(it)
                 val sydney1 =
                     LatLng(it.latitude, it.longitude)
@@ -154,7 +189,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
                         locationB.latitude = firstmerchant!!.merchantlon.toDouble()
                         locationB.longitude = firstmerchant!!.merchantlat.toDouble()
                         val distance = locationA.distanceTo(locationB)/1000
-                        deliveryFee = distance.toDouble() * 25
+                        deliveryFee = distance.toDouble() * deliveryunit
                         checkoutViewModel.isLocationConfirmed.postValue(true)
                     }
                 }
@@ -167,19 +202,19 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
                     val cartItems = homeViewModel.cartItem.value
                     Log.v("cartitems", cartItems!!.size.toString())
                     val merchant = cartItems?.first()?.cartItem?.cartMerchant
-                   if (cartItems != null && locationEntity != null) {
-                       checkoutViewModel.createOrder(
-                           merchant?.merchantId.orEmpty(),
-                           Payment(
-                               mainActivityViewModel.paymentMethod.value ?: CASH_ON_DELIVERY,
-                               null
-                           ),
-                           deliveryFee.toDouble(),
-                           checkoutViewModel.subtotal,
-                           locationEntity!!,
-                           cartItems
-                       )
-                   }
+                    if (cartItems != null && locationEntity != null) {
+                        checkoutViewModel.createOrder(
+                            merchant?.merchantId.orEmpty(),
+                            Payment(
+                                mainActivityViewModel.paymentMethod.value ?: CASH_ON_DELIVERY,
+                                null
+                            ),
+                            deliveryFee.toDouble(),
+                            checkoutViewModel.subtotal,
+                            locationEntity!!,
+                            cartItems
+                        )
+                    }
                 }
             }
         }
@@ -209,7 +244,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
                     handleError()
                     binding.btnPlaceOrder.text =
                         getString(R.string.place_order,
-                            "%.2f".format(checkoutViewModel.subtotal + 49))
+                            "%.2f".format(checkoutViewModel.subtotal + deliveryFee))
                 }
             }
         }
@@ -251,6 +286,26 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding> (
             locationEntity.address ?: getString(R.string.street_not_provided)
         binding.checkoutCity.text =
             locationEntity.city ?: getString(R.string.city_not_provided)
+        merchantLocation = LatLng(
+            firstmerchant!!.merchantlon.toDouble(),
+            firstmerchant!!.merchantlat.toDouble()
+        )
+        val locationA = Location("point A")
+        locationA.latitude = locationEntity.latitude
+        locationA.longitude = locationEntity.longitude
+        val locationB = Location("point B")
+        locationB.latitude = firstmerchant!!.merchantlon.toDouble()
+        locationB.longitude = firstmerchant!!.merchantlat.toDouble()
+        Log.v("cartitemslat", locationEntity.latitude.toString())
+        Log.v("cartitemslon", locationEntity.longitude.toString())
+        Log.v("cartitemslat", firstmerchant!!.merchantlon.toString())
+        Log.v("cartitemslon", firstmerchant!!.merchantlat.toString())
+        val distance = locationA.distanceTo(locationB)/1000
+        deliveryFee = distance.toDouble() * deliveryunit
+        binding.btnPlaceOrder.text =
+            getString(R.string.place_order,
+                "%.2f".format(checkoutViewModel.subtotal + deliveryFee))
+        binding.deliveryFee.text="₱"+ "%.2f".format(deliveryFee)
     }
 
     private fun handleError() {
